@@ -26,5 +26,9 @@ class DatabaseSeeder extends Seeder
             'username' => 'ashik786',
             'password' => Hash::make('12345678'),
         ]);
+
+        // \App\Models\Department::create([
+        //     'name' => 'Child Specialist',
+        // ]);
     }
 }
