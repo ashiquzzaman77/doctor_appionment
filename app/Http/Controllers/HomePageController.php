@@ -9,6 +9,12 @@ use Illuminate\Http\Request;
 class HomePageController extends Controller
 {
     //doctor
+    public function index()
+    {
+        return view('frontend.pages.index');
+    }
+
+    //doctor
     public function doctor()
     {
         $doctors = Doctor::latest('id')->get();
