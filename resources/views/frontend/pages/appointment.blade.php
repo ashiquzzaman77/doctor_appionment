@@ -31,14 +31,25 @@
                         @enderror
                     </div>
 
+                    <!-- Department Selection -->
+                    <div class="col-12 col-md-12 mb-3">
+                        <label for="department" class="form-label">Select Department</label>
+                        <select class="form-select" name="department_id" id="department" required>
+                            <option disabled selected>Choose...</option>
+                            @foreach ($departments as $department)
+                                <option value="{{ $department->id }}">{{ $department->name }}</option>
+                            @endforeach
+                        </select>
+                        @error('department_id')
+                            <div class="text-danger">{{ $message }}</div>
+                        @enderror
+                    </div>
+
                     <!-- Doctor Selection -->
                     <div class="col-12 col-md-12 mb-3">
                         <label for="doctor" class="form-label">Select Doctor</label>
                         <select class="form-select" name="doctor_id" id="doctor" required>
                             <option disabled selected>Choose...</option>
-                            @foreach ($doctors as $doctor)
-                                <option value="{{ $doctor->id }}">{{ $doctor->name }}</option>
-                            @endforeach
                         </select>
                         @error('doctor_id')
                             <div class="text-danger">{{ $message }}</div>
@@ -46,7 +57,7 @@
                     </div>
 
                     <!-- Patient Name -->
-                    <div class="col-12 col-md-12 mb-3">
+                    <div class="col-12 col-md-6 mb-3">
                         <label for="firstName" class="form-label">Patient Name</label>
                         <input type="text" name="patient_name" class="form-control" id="firstName" required>
                         @error('patient_name')
@@ -55,7 +66,7 @@
                     </div>
 
                     <!-- Patient Phone -->
-                    <div class="col-12 col-md-12 mb-3">
+                    <div class="col-12 col-md-6 mb-3">
                         <label for="phone" class="form-label">Patient Number</label>
                         <input type="tel" name="patient_phone" class="form-control" id="phone" required>
                         @error('patient_phone')
@@ -114,6 +125,41 @@
                     $('#total_fee').val(''); // Clear the total fee field if no doctor is selected
                 }
             });
+        });
+    </script>
+
+    <script>
+        // When the department is selected, update the doctors dropdown
+        $('#department').change(function() {
+            var departmentId = $(this).val(); // Get the selected department ID
+
+            if (departmentId) {
+                // Make an AJAX request to fetch doctors for the selected department
+                $.ajax({
+                    url: '/doctors-by-department/' + departmentId, // The URL we defined in routes/web.php
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function(response) {
+                        // Empty the doctor select dropdown
+                        $('#doctor').empty();
+                        $('#doctor').append('<option disabled selected>Choose...</option>');
+
+                        // Append new doctor options based on the response
+                        $.each(response, function(index, doctor) {
+                            $('#doctor').append('<option value="' + doctor.id + '">' + doctor
+                                .name + '</option>');
+                        });
+                    },
+                    error: function(xhr, status, error) {
+                        // Handle errors here (optional)
+                        console.log('Error: ' + error);
+                    }
+                });
+            } else {
+                // If no department is selected, clear the doctor dropdown
+                $('#doctor').empty();
+                $('#doctor').append('<option disabled selected>Choose...</option>');
+            }
         });
     </script>
 @endsection

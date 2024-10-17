@@ -17,6 +17,8 @@ return new class extends Migration
             $table->string('appointment_no')->nullable();
             $table->string('appointment_date')->nullable();
             $table->time('appointment_time')->nullable();
+            
+            $table->string('department_id')->nullable();
             $table->string('doctor_id')->nullable();
 
             // $table->unsignedBigInteger('doctor_id');

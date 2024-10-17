@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Doctor;
 use App\Models\Appointment;
+use App\Models\Department;
 use Illuminate\Http\Request;
 
 class HomePageController extends Controller
@@ -18,14 +19,15 @@ class HomePageController extends Controller
     public function doctor()
     {
         $doctors = Doctor::latest('id')->get();
-        return view('frontend.pages.doctor',compact('doctors'));
+        return view('frontend.pages.doctor', compact('doctors'));
     }
 
     //appointment
     public function appointment()
     {
+        $departments = Department::latest()->get();
         $doctors = Doctor::latest()->get();
-        return view('frontend.pages.appointment', compact('doctors'));
+        return view('frontend.pages.appointment', compact('doctors', 'departments'));
     }
 
     //getDoctorFee
@@ -35,6 +37,13 @@ class HomePageController extends Controller
         return response()->json(['fee' => $doctor->fee]);
     }
 
+    public function getDoctorsByDepartment($departmentId)
+    {
+        // Get doctors by department_id
+        $doctors = Doctor::where('department_id', $departmentId)->get();
+        return response()->json($doctors);
+    }
+
     //appointmentDoctor
     public function appointmentDoctor(Request $request)
     {
@@ -42,6 +51,7 @@ class HomePageController extends Controller
         $validatedData = $request->validate([
             'appointment_date' => 'required|date',
             'appointment_time' => 'required|date_format:H:i',
+            'department_id' => 'required',
             'doctor_id' => 'required|exists:doctors,id',
             'patient_name' => 'required|string|max:255',
             'patient_phone' => 'required|regex:/^\+?\d{10,15}$/', // basic phone validation
@@ -59,6 +69,7 @@ class HomePageController extends Controller
 
         $appointment->appointment_date = $validatedData['appointment_date'];
         $appointment->appointment_time = $validatedData['appointment_time'];
+        $appointment->department_id = $validatedData['department_id'];
         $appointment->doctor_id = $validatedData['doctor_id'];
         $appointment->patient_name = $validatedData['patient_name'];
         $appointment->patient_phone = $validatedData['patient_phone'];

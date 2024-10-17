@@ -10,4 +10,7 @@ Route::get('/doctor', [HomePageController::class, 'doctor'])->name('doctor');
 Route::get('/appointment', [HomePageController::class, 'appointment'])->name('appointment');
 Route::post('/appointment/doctor', [HomePageController::class, 'appointmentDoctor'])->name('appointment.doctor');
 Route::get('/doctor/fee/{doctorId}', [HomePageController::class, 'getDoctorFee'])->name('doctor.fee');
+// In routes/web.php
+Route::get('/doctors-by-department/{departmentId}', [HomePageController::class, 'getDoctorsByDepartment'])->name('doctors.byDepartment');
+
 
