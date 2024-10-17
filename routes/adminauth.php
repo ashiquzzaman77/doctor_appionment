@@ -9,6 +9,7 @@ use App\Http\Controllers\AdminAuth\PasswordController;
 use App\Http\Controllers\AdminAuth\PasswordResetLinkController;
 use App\Http\Controllers\AdminAuth\VerifyEmailController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\DoctorController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -64,8 +65,21 @@ Route::middleware('auth:admin')->group(function () {
 Route::middleware(['auth:admin', 'verified'])->group(function () {
 
     Route::get('/admin/dashboard', [AdminController::class, 'AdminDashboard'])->name('admin.dashboard');
-
     //Appointment
     Route::get('/admin/appointment', [AdminController::class, 'appointment'])->name('admin.appointment');
+
+
+});
+
+Route::middleware(['auth:admin'])->prefix('admin')->name('admin.')->group(function () {
+
+    // All Route 
+    Route::resources(
+        [
+            'doctor' => DoctorController::class,
+        ],
+
+    );
+
 
 });

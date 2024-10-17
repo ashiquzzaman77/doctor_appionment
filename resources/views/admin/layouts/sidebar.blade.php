@@ -41,7 +41,7 @@
                         </li>
 
                         <li class="nav-item">
-                            <a href="" class="nav-link">Doctor</a>
+                            <a href="{{ route('admin.doctor.index') }}" class="nav-link">Doctor</a>
                         </li>
 
                         <li class="nav-item">

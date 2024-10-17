@@ -15,7 +15,7 @@ class AdminController extends Controller
         $appointments = Appointment::with('doctor')->get();
         $doctors = Doctor::latest()->get();
         $departments = Department::latest()->get();
-        return view('admin.layouts.app',compact('appointments','doctors','departments'));
+        return view('admin.dashboard',compact('appointments','doctors','departments'));
     }
 
     //appointment
