@@ -65,4 +65,7 @@ Route::middleware(['auth:admin', 'verified'])->group(function () {
 
     Route::get('/admin/dashboard', [AdminController::class, 'AdminDashboard'])->name('admin.dashboard');
 
+    //Appointment
+    Route::get('/admin/appointment', [AdminController::class, 'appointment'])->name('admin.appointment');
+
 });
