@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Appointment;
+use App\Models\Department;
+use App\Models\Doctor;
 use Illuminate\Http\Request;
 
 class AdminController extends Controller
@@ -11,7 +13,9 @@ class AdminController extends Controller
     public function AdminDashboard()
     {
         $appointments = Appointment::with('doctor')->get();
-        return view('admin.layouts.app',compact('appointments'));
+        $doctors = Doctor::latest()->get();
+        $departments = Department::latest()->get();
+        return view('admin.layouts.app',compact('appointments','doctors','departments'));
     }
 
     //appointment
