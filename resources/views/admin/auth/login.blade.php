@@ -48,14 +48,17 @@
                         <div class="card">
                             <div class="row">
                                 <div class="col-md-4 pe-md-0">
+
                                     <div class="auth-side-wrapper">
+                                        <img src="{{ asset('admin/5500661.jpg') }}" style="width: 100%" alt="">
 
                                     </div>
+                                    
                                 </div>
-                                <div class="col-md-8 ps-md-0">
+                                <div class="col-md-8 ps-md-0 my-auto">
                                     <div class="auth-form-wrapper px-4 py-5">
                                         <a href="#"
-                                            class="noble-ui-logo logo-light d-block mb-2">Noble<span>UI</span></a>
+                                            class="noble-ui-logo logo-light d-block mb-2">Doctor <span>Appointment</span></a>
                                         <h5 class="text-muted fw-normal mb-4">Welcome back! Log in to your account.</h5>
 
                                         <form class="forms-sample" method="POST" action="{{ route('admin.login') }}">
