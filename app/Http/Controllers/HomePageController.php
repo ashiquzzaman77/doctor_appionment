@@ -11,7 +11,8 @@ class HomePageController extends Controller
     //doctor
     public function doctor()
     {
-        return view('frontend.pages.doctor');
+        $doctors = Doctor::latest('id')->get();
+        return view('frontend.pages.doctor',compact('doctors'));
     }
 
     //appointment
@@ -21,12 +22,12 @@ class HomePageController extends Controller
         return view('frontend.pages.appointment', compact('doctors'));
     }
 
+    //getDoctorFee
     public function getDoctorFee($doctorId)
     {
         $doctor = Doctor::find($doctorId);
         return response()->json(['fee' => $doctor->fee]);
     }
-
 
     //appointmentDoctor
     public function appointmentDoctor(Request $request)
