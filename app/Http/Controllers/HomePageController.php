@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Doctor;
 use App\Models\Appointment;
 use App\Models\Department;
+use App\Models\Doctor;
 use Illuminate\Http\Request;
 
 class HomePageController extends Controller
@@ -51,7 +51,7 @@ class HomePageController extends Controller
         $validatedData = $request->validate([
             'appointment_date' => 'required|date',
             'appointment_time' => 'required|date_format:H:i',
-            'department_id' => 'required',
+            'department_id' => 'required|exists:departments,id',
             'doctor_id' => 'required|exists:doctors,id',
             'patient_name' => 'required|string|max:255',
             'patient_phone' => 'required|regex:/^\+?\d{10,15}$/', // basic phone validation
@@ -59,14 +59,22 @@ class HomePageController extends Controller
             'paid_amount' => 'nullable|numeric|min:0',
         ]);
 
+        // Check if the doctor already has two appointments on the selected date
+        $appointmentCount = Appointment::where('doctor_id', $validatedData['doctor_id'])
+            ->whereDate('appointment_date', $validatedData['appointment_date'])
+            ->count();
+
+        if ($appointmentCount >= 2) {
+            return redirect()->back()->withErrors(['doctor_id' => 'This doctor already has two appointments on this date.']);
+        }
+
+        // Generate the next appointment number
         $lastAppointment = Appointment::orderBy('appointment_no', 'desc')->first();
         $nextAppointmentNo = $lastAppointment ? 'A-' . str_pad((int) substr($lastAppointment->appointment_no, 2) + 1, 3, '0', STR_PAD_LEFT) : 'A-001';
 
         // Create the new appointment in the database
         $appointment = new Appointment();
-
         $appointment->appointment_no = $nextAppointmentNo;
-
         $appointment->appointment_date = $validatedData['appointment_date'];
         $appointment->appointment_time = $validatedData['appointment_time'];
         $appointment->department_id = $validatedData['department_id'];
@@ -80,4 +88,5 @@ class HomePageController extends Controller
         // Redirect or return success response
         return redirect()->back()->with('success', 'Appointment successfully booked!');
     }
+
 }

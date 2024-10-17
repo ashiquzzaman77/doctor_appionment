@@ -9,10 +9,12 @@
         <h2 class="text-center mb-4">Doctor Appointment Form</h2>
 
         <div class="shadow p-5 bg-light">
+            
             <form method="POST" action="{{ route('appointment.doctor') }}" enctype="multipart/form-data">
                 @csrf
 
                 <div class="row mb-3">
+
                     <!-- Appointment Date -->
                     <div class="col-12 col-md-6 mb-3">
                         <label for="date" class="form-label">Appointment Date</label>
