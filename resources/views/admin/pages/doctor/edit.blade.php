@@ -59,7 +59,7 @@
                                 </div>
 
                                 <!-- Fee -->
-                                <div class="col-12 col-lg-4 mb-4">
+                                <div class="col-12 col-lg-3 mb-4">
                                     <label for="fee" class="mb-3">Fee</label>
                                     <input type="number" class="form-control" name="fee" placeholder="Enter Fee"
                                         value="{{ old('fee', $doctor->fee) }}">
@@ -68,6 +68,27 @@
                                     @enderror
                                 </div>
 
+                                <!-- Dates -->
+                                <div class="col-12 col-lg-4 mb-4">
+                                    <div class="form-group">
+                                        <label for="dates" class="mb-3">Select Dates:</label>
+                                        @foreach ($selectedDates as $index => $date)
+
+                                            <input type="text" class="form-control text-danger" disabled value="{{ $date }}">
+
+                                        @endforeach
+                                        <!-- Optional: Allow the user to add another date -->
+                                        <input type="date" name="date[]" class="form-control mb-2"
+                                            value="{{ old('date.' . count($selectedDates), '') }}"
+                                            placeholder="Add another date" id="date">
+                                        @error('date.*')
+                                            <div class="text-danger">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div>
+
+
+
                                 <div class="col-12 col-lg-12">
                                     <button class="btn btn-primary">Update</button>
                                 </div>
@@ -75,11 +96,24 @@
                         </form>
 
 
-
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
+    <script>
+        flatpickr("#date", {
+            mode: "multiple",
+            dateFormat: "Y-m-d",
+            onChange: function(selectedDates, dateStr, instance) {
+                // You can handle selected dates here
+                console.log(selectedDates);
+            }
+        });
+    </script>
 
 </x-admin-app-layout>

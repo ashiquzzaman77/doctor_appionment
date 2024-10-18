@@ -12,5 +12,7 @@ Route::post('/appointment/doctor', [HomePageController::class, 'appointmentDocto
 Route::get('/doctor/fee/{doctorId}', [HomePageController::class, 'getDoctorFee'])->name('doctor.fee');
 // In routes/web.php
 Route::get('/doctors-by-department/{departmentId}', [HomePageController::class, 'getDoctorsByDepartment'])->name('doctors.byDepartment');
+Route::get('doctor/availability/{doctorId}/{date}', [HomePageController::class, 'checkAvailability']);
+
 
 

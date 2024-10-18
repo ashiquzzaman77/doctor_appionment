@@ -44,6 +44,8 @@ class HomePageController extends Controller
         return response()->json($doctors);
     }
 
+    
+
     //appointmentDoctor
     public function appointmentDoctor(Request $request)
     {

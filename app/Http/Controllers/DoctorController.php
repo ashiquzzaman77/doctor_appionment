@@ -37,6 +37,7 @@ class DoctorController extends Controller
             'name' => 'required|string|max:255',
             'phone' => 'required|numeric',
             'fee' => 'required|numeric',
+            'date.*' => 'required',
         ]);
 
         // Create a new doctor
@@ -45,6 +46,7 @@ class DoctorController extends Controller
             'name' => $request->name,
             'phone' => $request->phone,
             'fee' => $request->fee,
+            'date' => json_encode($request->date)
         ]);
 
         // Redirect with a success message
@@ -67,7 +69,11 @@ class DoctorController extends Controller
         $doctor = Doctor::findOrFail($id);
         $departments = Department::latest()->get();
 
-        return view('admin.pages.doctor.edit', compact('departments', 'doctor'));
+        $selectedDates = $doctor->date ? json_decode($doctor->date) : [];
+
+        // dd($doctor, $departments, $selectedDates);
+
+        return view('admin.pages.doctor.edit', compact('departments', 'doctor','selectedDates'));
     }
 
     /**
@@ -84,6 +90,7 @@ class DoctorController extends Controller
             'name' => 'required|string|max:255',
             'phone' => 'required|numeric',
             'fee' => 'required|numeric',
+            'date.*' => 'required',
         ]);
 
         // Update the doctor information
@@ -92,6 +99,7 @@ class DoctorController extends Controller
             'name' => $request->name,
             'phone' => $request->phone,
             'fee' => $request->fee,
+            'date' => json_encode($request->date)
         ]);
 
         // Redirect with a success message

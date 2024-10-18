@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('name')->nullable();
             $table->string('phone')->nullable();
             $table->string('fee')->nullable();
+            $table->json('date')->nullable();
 
             $table->timestamps();
         });

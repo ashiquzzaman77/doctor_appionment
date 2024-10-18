@@ -6,32 +6,14 @@
 
     <section class="container-custom" style="margin-bottom: 120px; margin-top: 50px;">
 
-        <h2 class="text-center mb-4">Doctor Appointment Form</h2>
+        <h2 class="text-center mb-4">Doctor Appointment</h2>
 
         <div class="shadow p-5 bg-light">
-            
+
             <form method="POST" action="{{ route('appointment.doctor') }}" enctype="multipart/form-data">
                 @csrf
 
                 <div class="row mb-3">
-
-                    <!-- Appointment Date -->
-                    <div class="col-12 col-md-6 mb-3">
-                        <label for="date" class="form-label">Appointment Date</label>
-                        <input type="date" name="appointment_date" class="form-control" id="date" required>
-                        @error('appointment_date')
-                            <div class="text-danger">{{ $message }}</div>
-                        @enderror
-                    </div>
-
-                    <!-- Appointment Time -->
-                    <div class="col-12 col-md-6 mb-3">
-                        <label for="time" class="form-label">Appointment Time</label>
-                        <input type="time" name="appointment_time" class="form-control" id="time" required>
-                        @error('appointment_time')
-                            <div class="text-danger">{{ $message }}</div>
-                        @enderror
-                    </div>
 
                     <!-- Department Selection -->
                     <div class="col-12 col-md-12 mb-3">
@@ -58,6 +40,24 @@
                         @enderror
                     </div>
 
+                    <!-- Appointment Date -->
+                    <div class="col-12 col-md-6 mb-3">
+                        <label for="date" class="form-label">Appointment Date</label>
+                        <input type="date" name="appointment_date" class="form-control" id="date" required>
+                        @error('appointment_date')
+                            <div class="text-danger">{{ $message }}</div>
+                        @enderror
+                    </div>
+
+                    <!-- Appointment Time -->
+                    <div class="col-12 col-md-6 mb-3">
+                        <label for="time" class="form-label">Appointment Time</label>
+                        <input type="time" name="appointment_time" class="form-control" id="time" required>
+                        @error('appointment_time')
+                            <div class="text-danger">{{ $message }}</div>
+                        @enderror
+                    </div>
+
                     <!-- Patient Name -->
                     <div class="col-12 col-md-6 mb-3">
                         <label for="firstName" class="form-label">Patient Name</label>
@@ -69,7 +69,7 @@
 
                     <!-- Patient Phone -->
                     <div class="col-12 col-md-6 mb-3">
-                        <label for="phone" class="form-label">Patient Number</label>
+                        <label for="phone" class="form-label">Phone Number</label>
                         <input type="tel" name="patient_phone" class="form-control" id="phone" required>
                         @error('patient_phone')
                             <div class="text-danger">{{ $message }}</div>
@@ -108,6 +108,7 @@
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
     <script>
         $(document).ready(function() {
             // When a doctor is selected
@@ -164,4 +165,6 @@
             }
         });
     </script>
+
+    
 @endsection
