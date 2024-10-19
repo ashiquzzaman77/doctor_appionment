@@ -20,7 +20,7 @@
                             <div class="row">
 
                                 <!-- Department Name -->
-                                <div class="col-12 col-lg-4 mb-4">
+                                <div class="col-12 col-lg-3 mb-4">
                                     <label for="" class="mb-3">Department Name</label>
                                     <select name="department_id" class="form-select">
                                         <option selected disabled>Choose...</option>
@@ -34,11 +34,32 @@
                                 </div>
 
                                 <!-- Doctor Name -->
-                                <div class="col-12 col-lg-4 mb-4">
+                                <div class="col-12 col-lg-3 mb-4">
                                     <label for="" class="mb-3">Name</label>
                                     <input type="text" class="form-control" name="name"
                                         placeholder="Enter Doctor Name" value="{{ old('name') }}">
                                     @error('name')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
+
+                                <!-- Practice Day -->
+                                <div class="col-12 col-lg-3 mb-4">
+                                    <label for="practice_day" class="mb-3">Practice Day</label>
+                                    <input type="text" class="form-control" name="practice_day" id="practice_day"
+                                        value="{{ old('practice_day') }}">
+                                    @error('practice_day')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
+
+
+                                <!-- Visiting Our -->
+                                <div class="col-12 col-lg-3 mb-4">
+                                    <label for="" class="mb-3">Visiting Hour</label>
+                                    <input type="text" class="form-control" name="visiting_hour"
+                                        placeholder="Eg: 5pm-10pm" value="{{ old('visiting_hour') }}">
+                                    @error('visiting_hour')
                                         <div class="text-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
@@ -56,8 +77,8 @@
                                 <!-- Fee -->
                                 <div class="col-12 col-lg-2 mb-4">
                                     <label for="" class="mb-3">Fee</label>
-                                    <input type="number" class="form-control" min="0" name="fee" placeholder="Enter Fee"
-                                        value="{{ old('fee') }}">
+                                    <input type="number" class="form-control" min="0" name="fee"
+                                        placeholder="Enter Fee" value="{{ old('fee') }}">
                                     @error('fee')
                                         <div class="text-danger">{{ $message }}</div>
                                     @enderror
@@ -67,7 +88,8 @@
                                 <div class="col-12 col-lg-3 mb-4">
                                     <div class="form-group">
                                         <label for="dates" class="mb-3">Select Dates:</label>
-                                        <input type="date" id="date" placeholder="select date..." name="date[]" class="form-control" multiple>
+                                        <input type="date" id="date" placeholder="select date..." name="date[]"
+                                            class="form-control" multiple>
                                         @error('date.*')
                                             <div class="text-danger">{{ $message }}</div>
                                         @enderror
@@ -92,6 +114,10 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 
+    <!-- Tagify CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/@yaireo/tagify@4.11.0/dist/tagify.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/@yaireo/tagify@4.11.0/dist/tagify.min.js"></script>
+
 
 
     <script>
@@ -104,6 +130,19 @@
             }
         });
     </script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var input = document.querySelector('#practice_day');
+            new Tagify(input, {
+                whitelist: [], // You can predefine a list of tags if needed
+                delimiters: ",| ", // Accepts commas and space as tag delimiters
+                maxTags: 10, // Maximum number of tags allowed
+                placeholder: "Enter tags"
+            });
+        });
+    </script>
+
 
 
 </x-admin-app-layout>

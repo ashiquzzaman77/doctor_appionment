@@ -19,6 +19,9 @@ return new class extends Migration
 
             $table->string('department_id')->nullable();
             $table->string('name')->nullable();
+            $table->json('practice_day')->nullable();
+            $table->string('visiting_hour')->nullable();
+            $table->string('name')->nullable();
             $table->string('phone')->nullable();
             $table->string('fee')->nullable();
             $table->json('date')->nullable();

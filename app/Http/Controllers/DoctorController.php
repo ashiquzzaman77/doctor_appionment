@@ -37,6 +37,8 @@ class DoctorController extends Controller
             'name' => 'required|string|max:255',
             'phone' => 'required|numeric',
             'fee' => 'required|numeric',
+            'visiting_hour' => 'required',
+            'practice_day' => 'required',
             'date.*' => 'required',
         ]);
 
@@ -44,8 +46,10 @@ class DoctorController extends Controller
         Doctor::create([
             'department_id' => $request->department_id,
             'name' => $request->name,
+            'visiting_hour' => $request->visiting_hour,
             'phone' => $request->phone,
             'fee' => $request->fee,
+            'practice_day' => json_encode($request->practice_day),
             'date' => json_encode($request->date)
         ]);
 
@@ -68,13 +72,13 @@ class DoctorController extends Controller
     {
         $doctor = Doctor::findOrFail($id);
         $departments = Department::latest()->get();
-
         $selectedDates = $doctor->date ? json_decode($doctor->date) : [];
+        
+        $practiceDays = $doctor->practice_day ? json_decode($doctor->practice_day) : []; // Decode practice_day
 
-        // dd($doctor, $departments, $selectedDates);
-
-        return view('admin.pages.doctor.edit', compact('departments', 'doctor','selectedDates'));
+        return view('admin.pages.doctor.edit', compact('departments', 'doctor', 'selectedDates', 'practiceDays'));
     }
+
 
     /**
      * Update the specified resource in storage.
@@ -90,6 +94,8 @@ class DoctorController extends Controller
             'name' => 'required|string|max:255',
             'phone' => 'required|numeric',
             'fee' => 'required|numeric',
+            'visiting_hour' => 'required',
+            'practice_day' => 'required',
             'date.*' => 'required',
         ]);
 
@@ -97,9 +103,11 @@ class DoctorController extends Controller
         $doctor->update([
             'department_id' => $request->department_id,
             'name' => $request->name,
+            'visiting_hour' => $request->visiting_hour,
             'phone' => $request->phone,
             'fee' => $request->fee,
-            'date' => json_encode($request->date)
+            'date' => json_encode($request->date),
+            'practice_day' => json_encode($request->practice_day),
         ]);
 
         // Redirect with a success message
