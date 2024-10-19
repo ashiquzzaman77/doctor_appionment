@@ -131,7 +131,7 @@
         });
     </script>
 
-    <script>
+    {{-- <script>
         document.addEventListener("DOMContentLoaded", function() {
             var input = document.querySelector('#practice_day');
             new Tagify(input, {
@@ -141,7 +141,7 @@
                 placeholder: "Enter tags"
             });
         });
-    </script>
+    </script> --}}
 
 
 

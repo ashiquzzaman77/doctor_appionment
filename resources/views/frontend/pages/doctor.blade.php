@@ -25,11 +25,6 @@
         <div class="row row-cols-1 row-cols-md-2 g-4">
 
             @forelse ($doctors as $doctor)
-
-            @php
-                $practiceDays = $doctor->practice_day ? json_decode($doctor->practice_day) : [];
-            @endphp
-
                 <div class="col-12 col-md-6 col-lg-3">
                     <div class="card h-100">
 
@@ -39,8 +34,15 @@
                         <div class="card-body">
                             <h4 class="card-title">{{ $doctor->name }}</h4>
 
-                            <p class="text-muted mb-0">Parctice Day : <span
-                                    class="fw-bold">{{ (is_array($practiceDays) ? implode(', ', $practiceDays) : $practiceDays) }}</span></p>
+
+                            <p class="text-muted mb-0">Practice Days:
+                                <span class="fw-bold">
+                                    @foreach (explode(', ', $doctor->practice_day) as $day)
+                                        {{ $day }}@if (!$loop->last), @endif
+                                    @endforeach
+                                </span>
+                            </p>
+                            
 
                             <p class="text-muted">Visiting Hour : <span class="fw-bold">{{ $doctor->visiting_hour }}</span>
                             </p>
@@ -52,11 +54,12 @@
                         </div>
                     </div>
                 </div>
-            @empty
-            @endforelse
+                @empty
+                    <p>No Doctor Avaiable</p>
+                @endforelse
 
-        </div>
+            </div>
 
 
-    </section>
-@endsection
+        </section>
+    @endsection

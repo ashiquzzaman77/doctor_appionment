@@ -49,7 +49,7 @@ class DoctorController extends Controller
             'visiting_hour' => $request->visiting_hour,
             'phone' => $request->phone,
             'fee' => $request->fee,
-            'practice_day' => json_encode($request->practice_day),
+            'practice_day' => $request->practice_day,
             'date' => json_encode($request->date)
         ]);
 
@@ -107,7 +107,8 @@ class DoctorController extends Controller
             'phone' => $request->phone,
             'fee' => $request->fee,
             'date' => json_encode($request->date),
-            'practice_day' => json_encode($request->practice_day),
+            // 'practice_day' => json_encode($request->practice_day),
+            'practice_day' => $request->practice_day,
         ]);
 
         // Redirect with a success message

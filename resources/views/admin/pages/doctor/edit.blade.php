@@ -49,11 +49,14 @@
                                 </div>
 
                                 <!-- Practice Day -->
-                                <!-- Practice Day -->
                                 <div class="col-12 col-lg-3 mb-4">
                                     <label for="practice_day" class="mb-3">Practice Day</label>
+                                    {{-- <input type="text" class="form-control" name="practice_day" id="practice_day"
+                                        value="{{ old('practice_day', is_array($practiceDays) ? implode(', ', $practiceDays) : $practiceDays) }}"> --}}
+
                                     <input type="text" class="form-control" name="practice_day" id="practice_day"
-                                        value="{{ old('practice_day', is_array($practiceDays) ? implode(', ', $practiceDays) : $practiceDays) }}">
+                                        value="{{ old('practice_day', $doctor->practice_day) }}">
+
                                     @error('practice_day')
                                         <div class="text-danger">{{ $message }}</div>
                                     @enderror
@@ -144,7 +147,7 @@
         });
     </script>
 
-    <script>
+    {{-- <script>
         document.addEventListener("DOMContentLoaded", function() {
             var input = document.querySelector('#practice_day');
             new Tagify(input, {
@@ -154,6 +157,6 @@
                 placeholder: "Enter tags"
             });
         });
-    </script>
+    </script> --}}
 
 </x-admin-app-layout>
